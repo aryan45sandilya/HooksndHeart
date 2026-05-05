@@ -13,7 +13,6 @@ const generateOTP = () => {
 const sendOTP = async (phone, otp) => {
   const apiKey = process.env.FAST2SMS_API_KEY;
 
-  // If no API key configured, log OTP for development
   if (!apiKey || apiKey === 'your_fast2sms_api_key_here') {
     console.log(`\n=============================`);
     console.log(`OTP for ${phone}: ${otp}`);
@@ -22,24 +21,40 @@ const sendOTP = async (phone, otp) => {
   }
 
   try {
-    const axios = require('axios');
-    const response = await axios({
-      method: 'GET',
-      url: 'https://www.fast2sms.com/dev/bulkV2',
-      params: {
-        authorization: apiKey,
-        variables_values: otp,
-        route: 'otp',
-        numbers: phone,
-      },
-      headers: {
-        'cache-control': 'no-cache'
-      }
+    const https = require('https');
+    const params = new URLSearchParams({
+      authorization: apiKey,
+      variables_values: otp,
+      route: 'otp',
+      numbers: phone,
     });
-    console.log(`SMS sent to ${phone}:`, response.data);
-    return { success: true, data: response.data };
+
+    return new Promise((resolve, reject) => {
+      const options = {
+        hostname: 'www.fast2sms.com',
+        path: `/dev/bulkV2?${params.toString()}`,
+        method: 'GET',
+        headers: { 'cache-control': 'no-cache' }
+      };
+
+      const req = https.request(options, (res) => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+          console.log(`SMS sent to ${phone}:`, data);
+          resolve({ success: true });
+        });
+      });
+
+      req.on('error', (err) => {
+        console.error('SMS Error:', err.message);
+        reject(new Error('Failed to send OTP SMS'));
+      });
+
+      req.end();
+    });
   } catch (error) {
-    console.error('SMS Error:', error.response?.data || error.message);
+    console.error('SMS Error:', error.message);
     throw new Error('Failed to send OTP SMS');
   }
 };
