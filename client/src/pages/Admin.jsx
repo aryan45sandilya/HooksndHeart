@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 
 function Admin() {
-  const { token } = useAuth();
+  const { token, admin } = useAuth();
   const [activeTab, setActiveTab] = useState('products'); // 'products', 'orders', 'settings'
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
