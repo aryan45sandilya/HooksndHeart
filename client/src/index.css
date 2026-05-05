@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cream-100 text-gray-800 font-body;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-rust-500 text-cream-50 px-8 py-4 rounded-full font-semibold 
+           hover:bg-rust-600 hover:scale-105 hover:shadow-xl
+           transition-all duration-300 ease-out
+           active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply bg-cream-200 text-rust-700 px-8 py-4 rounded-full font-semibold 
+           hover:bg-cream-300 hover:scale-105 hover:shadow-lg
+           transition-all duration-300 ease-out
+           active:scale-95;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-lg overflow-hidden 
+           hover:shadow-2xl hover:-translate-y-2
+           transition-all duration-300 ease-out
+           border-2 border-cream-200;
+  }
+  
+  .input-field {
+    @apply w-full px-5 py-4 border-2 border-cream-300 rounded-xl 
+           focus:ring-4 focus:ring-rust-200 focus:border-rust-400 
+           outline-none transition-all duration-200
+           bg-white placeholder-gray-400;
+  }
+  
+  .section-title {
+    @apply text-4xl md:text-5xl font-bold text-rust-600 mb-4
+           animate-slide-up;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-cream-200 via-cream-100 to-golden-50;
+  }
+  
+  .yarn-pattern {
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(232, 168, 87, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(232, 116, 97, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(91, 154, 160, 0.08) 0%, transparent 50%);
+  }
+}
