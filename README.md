@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Hooks & Heart](client/public/logo.png)
+<img src="client/public/logo.png" width="80" height="80" style="border-radius:50%" />
 
 **Handmade Crochet Products — Made with Love, One Stitch at a Time**
 
@@ -126,16 +126,6 @@ cd server && node index.js
 # Client (port 5173)
 cd client && npm run dev
 ```
-
----
-
-## 📱 Contact
-
-| | |
-|--|--|
-| 📱 Phone | +91 88266 28029 |
-| 📱 WhatsApp | +91 99716 70277 |
-| 📷 Instagram | [@hooksndheart](https://www.instagram.com/hooksndheart?igsh=bjhnbG82Zmg5OWZq) |
 
 ---
 
