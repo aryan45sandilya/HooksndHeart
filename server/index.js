@@ -34,7 +34,28 @@ const connectDB = async () => {
   }
 };
 
-connectDB();
+connectDB().then(async () => {
+  // Auto-create admin in production if not exists
+  if (process.env.CREATE_ADMIN === 'true') {
+    try {
+      const Admin = require('./models/Admin');
+      const existing = await Admin.findOne({ username: 'admin' });
+      if (!existing) {
+        await Admin.create({
+          username: 'admin',
+          email: 'admin@hooksndheart.com',
+          password: 'admin123',
+          role: 'superadmin'
+        });
+        console.log('✅ Admin created: username=admin, password=admin123');
+      } else {
+        console.log('ℹ️  Admin already exists');
+      }
+    } catch (e) {
+      console.error('Admin create error:', e.message);
+    }
+  }
+});
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
